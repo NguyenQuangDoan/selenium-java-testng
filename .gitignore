@@ -1,0 +1,28 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Browser Drivers (binary files)
+browserDrivers/
+
+# OS files
+.DS_Store
+Thumbs.db
