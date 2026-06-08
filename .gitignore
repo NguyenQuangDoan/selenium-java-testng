@@ -3,6 +3,7 @@
 *.iws
 *.ipr
 out/
+test-output/
 
 # Compiled class files
 *.class

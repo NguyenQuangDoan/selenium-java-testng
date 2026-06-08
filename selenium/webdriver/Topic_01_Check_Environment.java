@@ -1,31 +1,45 @@
 package webdriver;
 
+import listeners.TestListener;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Listeners(TestListener.class)
 public class Topic_01_Check_Environment {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
     String osName = System.getProperty("os.name");
+    boolean headless = false;
 
     @BeforeClass
     public void beforeClass() {
-        if (osName.contains("Mac OS")) {
-            System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
+        if (osName.contains("Mac")) {
+            System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
         } else {
-            System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+            System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
         }
 
-        driver = new FirefoxDriver();
+        ChromeOptions options = new ChromeOptions();
+        if (headless) {
+            options.addArguments("--headless");
+            options.addArguments("--window-size=1920,1080");
+        }
+
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://www.facebook.com/");
+        if (!headless) {
+            driver.manage().window().maximize();
+        }
     }
 
     @Test
@@ -42,5 +56,10 @@ public class Topic_01_Check_Environment {
 
     @Test
     public void TC_04_GetPageSourceCode() {
+    }
+
+    @AfterClass
+    public void afterClass() {
+        driver.quit();
     }
 }

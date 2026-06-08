@@ -1,5 +1,6 @@
 package webdriver;
 
+import listeners.TestListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,10 +8,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Listeners(TestListener.class)
 public class Topic_06_Browser_Exercise {
 
     WebDriver driver;
@@ -45,21 +48,45 @@ public class Topic_06_Browser_Exercise {
         driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://live.techpanda.org/index.php/customer/account/login/");
+        
         driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/customer/account/create/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://live.techpanda.org/index.php/customer/account/create/");
     }
 
     @Test
     public void TC_02_Title() {
+        driver.get("http://live.techpanda.org/");
+        driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
+        Assert.assertEquals(driver.getTitle(), "Customer Login");
+
+        driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
+        Assert.assertEquals(driver.getTitle(), "Create New Customer Account");
     }
 
     @Test
     public void TC_03_Navigate() {
+        driver.get("http://live.techpanda.org/");
+        driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
+        driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
+        
+        Assert.assertEquals(driver.getCurrentUrl(), "https://live.techpanda.org/index.php/customer/account/create/");
+        
+        driver.navigate().back();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://live.techpanda.org/index.php/customer/account/login/");
+        
+        driver.navigate().forward();
+        Assert.assertEquals(driver.getTitle(), "Create New Customer Account");
     }
 
     @Test
     public void TC_04_Page_Source() {
+        driver.get("http://live.techpanda.org/");
+        driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
+        Assert.assertTrue(driver.getPageSource().contains("Login or Create an Account"));
+
+        driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
+        Assert.assertTrue(driver.getPageSource().contains("Create an Account"));
     }
 
     @AfterClass
