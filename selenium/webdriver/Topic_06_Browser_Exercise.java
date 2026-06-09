@@ -3,8 +3,8 @@ package webdriver;
 import listeners.TestListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,18 +24,24 @@ public class Topic_06_Browser_Exercise {
     @BeforeClass
     public void beforeClass() {
         if (osName.contains("Mac")) {
-            System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+            System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
         } else {
-            System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+            System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
         }
 
-        ChromeOptions options = new ChromeOptions();
+        FirefoxOptions options = new FirefoxOptions();
+        if (osName.contains("Mac")) {
+            options.setBinary("/Applications/Firefox.app/Contents/MacOS/firefox");
+        }
+        options.addPreference("security.insecure_field_warning.contextual.enabled", false);
+        options.addPreference("security.warn_submit_insecure", false);
+        options.setAcceptInsecureCerts(true);
         if (headless) {
             options.addArguments("--headless");
             options.addArguments("--window-size=1920,1080");
         }
 
-        driver = new ChromeDriver(options);
+        driver = new FirefoxDriver(options);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         if (!headless) {
             driver.manage().window().maximize();
