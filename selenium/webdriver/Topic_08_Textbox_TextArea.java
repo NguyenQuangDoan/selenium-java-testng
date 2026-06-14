@@ -67,7 +67,7 @@ public class Topic_08_Textbox_TextArea {
         }
     }
 
-    // @Test
+    @Test
     public void TC_01_TechPanda() throws InterruptedException {
         String txtFirstname = "John";
         String txtLastname = "Doe";

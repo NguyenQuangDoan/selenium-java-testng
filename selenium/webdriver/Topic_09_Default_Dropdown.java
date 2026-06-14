@@ -52,7 +52,7 @@ public class Topic_09_Default_Dropdown {
         }
     }
 
-    //@Test
+    @Test
     public void TC_01() {
         driver.get("https://egov.danang.gov.vn/reg");
         select = new Select(driver.findElement(By.id("gioiTinh")));
