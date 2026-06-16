@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
-public class Topic_12_Button_RadioButton_Checkbox_Alert {
+public class Topic_12_Button {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
