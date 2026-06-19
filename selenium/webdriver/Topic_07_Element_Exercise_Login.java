@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
-public class Topic_07_Element_Exercise {
+public class Topic_07_Element_Exercise_Login {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
