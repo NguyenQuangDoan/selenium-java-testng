@@ -62,14 +62,14 @@ public class Topic_16_Action {
         wait = new WebDriverWait(driver, 10);
     }
 
-    //@Test
+    @Test
     public void TC_01_Hover_To_Element() {
         driver.get("https://automationfc.github.io/jquery-tooltip/");
         actions.moveToElement(driver.findElement(By.id("age"))).perform();
         Assert.assertEquals(driver.findElement(By.xpath("//div[@class='ui-tooltip-content']")).getText(), "We ask for your age only for statistical purposes.");
     }
     
-    //@Test
+    @Test
     public void TC_02_Hover_To_Element() throws InterruptedException {
         driver.get("http://www.myntra.com/");
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -91,7 +91,7 @@ public class Topic_16_Action {
         Assert.assertTrue(driver.getCurrentUrl().contains("kids-home-bath"));
     }
 
-    //@Test
+    @Test
     public void TC_03_Hover_To_Element() throws InterruptedException {
         driver.get("https://www.fahasa.com/");
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -110,7 +110,7 @@ public class Topic_16_Action {
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='fhs_column_stretch']//a[text()='Kỹ Năng Sống']")).isDisplayed());
     }
     
-    //@Test
+    @Test
     public void TC_04_Click_And_Hold_Element() throws InterruptedException {
         driver.get("https://automationfc.github.io/jquery-selectable/");
         
@@ -134,7 +134,7 @@ public class Topic_16_Action {
         }
     }
 
-    //@Test
+    @Test
     public void TC_05_Click_And_Select_Random_Element() throws InterruptedException {
         driver.get("https://automationfc.github.io/jquery-selectable/");
 
@@ -159,7 +159,7 @@ public class Topic_16_Action {
         }
     }
 
-    //@Test
+    @Test
     public void TC_06_Double_Click() throws InterruptedException {
         driver.get("https://automationfc.github.io/basic-form/index.html");
         
@@ -190,6 +190,23 @@ public class Topic_16_Action {
         
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("ul.context-menu-list")));
     }
+
+    @Test
+    public void TC_08_Drag_Drop() throws InterruptedException {
+        driver.get("https://automationfc.github.io/kendo-drag-drop/");
+        
+        WebElement source = driver.findElement(By.id("draggable"));
+        WebElement target = driver.findElement(By.id("droptarget"));
+        
+        actions.dragAndDrop(source, target).perform();
+        Thread.sleep(2000);
+        
+        Assert.assertEquals(driver.findElement(By.id("droptarget")).getText(), "You did great!");
+        
+        String bgColor = driver.findElement(By.id("droptarget")).getCssValue("background-color");
+        Assert.assertTrue(bgColor.equals("rgb(3, 169, 244)") || bgColor.equals("rgba(3, 169, 244, 1)"));
+    }
+    
 
     @AfterClass
     public void afterClass() {
