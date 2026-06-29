@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_18_Popup_Shadow_DOM {
@@ -48,11 +48,11 @@ public class Topic_18_Popup_Shadow_DOM {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         jsExecutor = (JavascriptExecutor) driver;
     }
 

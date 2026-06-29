@@ -21,7 +21,6 @@ import org.openqa.selenium.Alert;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
 public class Topic_16_Action {
@@ -54,12 +53,12 @@ public class Topic_16_Action {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
         actions = new Actions(driver);
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Test
@@ -72,7 +71,7 @@ public class Topic_16_Action {
     @Test
     public void TC_02_Hover_To_Element() throws InterruptedException {
         driver.get("http://www.myntra.com/");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
         // Hover vào Kids menu
         WebElement kidsMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@data-group='kids']")));
@@ -94,7 +93,7 @@ public class Topic_16_Action {
     @Test
     public void TC_03_Hover_To_Element() throws InterruptedException {
         driver.get("https://www.fahasa.com/");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
         // Hover vào Kids menu
         WebElement iconMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='icon_menu']")));

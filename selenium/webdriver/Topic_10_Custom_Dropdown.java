@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_10_Custom_Dropdown {
@@ -47,7 +47,7 @@ public class Topic_10_Custom_Dropdown {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
@@ -70,7 +70,7 @@ public class Topic_10_Custom_Dropdown {
 
     private void selectItemInCustomDropdown(String labelName, String itemValue) {
         driver.findElement(By.xpath("//label[text()='" + labelName + "']/parent::div/following-sibling::div/div")).click();
-        List<WebElement> allItems = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[text()='" + labelName + "']/parent::div/following-sibling::div//div[contains(@class,'oxd-select-option')]")));
+        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[text()='" + labelName + "']/parent::div/following-sibling::div//div[contains(@class,'oxd-select-option')]")));
         for (WebElement item : allItems) {
             if (item.getText().equals(itemValue)) {
                 item.click();
@@ -81,7 +81,7 @@ public class Topic_10_Custom_Dropdown {
 
     private boolean isLoadingWheelDisappear() {
         WebElement loadingWheel = driver.findElement(By.xpath("//div[@class='oxd-loading-spinner-container']"));
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOf(loadingWheel));
         return true;
     }

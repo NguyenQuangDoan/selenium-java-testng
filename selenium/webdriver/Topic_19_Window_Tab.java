@@ -16,7 +16,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_19_Window_Tab {
@@ -48,8 +48,8 @@ public class Topic_19_Window_Tab {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 30);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }

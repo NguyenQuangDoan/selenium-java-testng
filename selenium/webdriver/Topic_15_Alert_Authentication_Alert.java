@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_15_Alert_Authentication_Alert {
@@ -50,7 +50,7 @@ public class Topic_15_Alert_Authentication_Alert {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
@@ -60,7 +60,7 @@ public class Topic_15_Alert_Authentication_Alert {
     public void TC_01_Accept_Alert() {
         driver.get("https://automationfc.github.io/basic-form/index.html");
         driver.findElement(By.xpath("//button[text()='Click for JS Alert']")).click();
-        Alert alert = new WebDriverWait(driver, 15).until(ExpectedConditions.alertIsPresent());
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.alertIsPresent());
         String textOnAlert = alert.getText();
         Assert.assertEquals(textOnAlert, "I am a JS Alert");
         alert.accept();
@@ -71,7 +71,7 @@ public class Topic_15_Alert_Authentication_Alert {
     public void TC_02_Confirm_Alert() {
         driver.get("https://automationfc.github.io/basic-form/index.html");
         driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
-        Alert alert = new WebDriverWait(driver, 15).until(ExpectedConditions.alertIsPresent());
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.alertIsPresent());
         String textOnAlert = alert.getText();
         Assert.assertEquals(textOnAlert, "I am a JS Confirm");
         alert.dismiss();
@@ -82,7 +82,7 @@ public class Topic_15_Alert_Authentication_Alert {
     public void TC_03_Prompt_Alert() {
         driver.get("https://automationfc.github.io/basic-form/index.html");
         driver.findElement(By.xpath("//button[text()='Click for JS Prompt']")).click();
-        Alert alert = new WebDriverWait(driver, 15).until(ExpectedConditions.alertIsPresent());
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.alertIsPresent());
         String textOnAlert = alert.getText();
         Assert.assertEquals(textOnAlert, "I am a JS prompt");
         alert.sendKeys("Hello");
@@ -113,7 +113,7 @@ public class Topic_15_Alert_Authentication_Alert {
 
 
     private void isLoadingDone() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".kd-loader-wrap")));
         
     }

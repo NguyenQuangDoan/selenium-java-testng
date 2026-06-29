@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.openqa.selenium.support.ui.Select;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 
 @Listeners(TestListener.class)
@@ -45,7 +45,7 @@ public class Topic_17_iframe {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }

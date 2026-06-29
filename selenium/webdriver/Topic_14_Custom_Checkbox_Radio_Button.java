@@ -17,7 +17,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_14_Custom_Checkbox_Radio_Button {
@@ -48,7 +48,7 @@ public class Topic_14_Custom_Checkbox_Radio_Button {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
@@ -85,7 +85,7 @@ public class Topic_14_Custom_Checkbox_Radio_Button {
     }
 
     private void isLoadingDone() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".kd-loader-wrap")));
     }
 

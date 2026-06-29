@@ -2,7 +2,9 @@ package webdriver;
 
 import listeners.TestListener;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
@@ -14,7 +16,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 @Listeners(TestListener.class)
-public class Topic_01_Check_Environment {
+public class Topic_20_Shadow_DOM {
 
     WebDriver driver;
     String projectPath = System.getProperty("user.dir");
@@ -49,19 +51,33 @@ public class Topic_01_Check_Environment {
     }
 
     @Test
-    public void TC_01_ValidateUrl() {
+    public void TC_01_Home_Shopping() {
+        driver.get("https://shop.polymer-project.org/");
+
+        WebElement shopAppShadowHost = driver.findElement(By.cssSelector("shop-app"));
+        SearchContext shopAppShadowRoot = shopAppShadowHost.getShadowRoot();
+        
+        WebElement shopHomeShadowHost = shopAppShadowRoot.findElement(By.cssSelector("iron-pages > shop-home"));
+        SearchContext shopHomeShadowRoot = shopHomeShadowHost.getShadowRoot();
+
+        shopHomeShadowRoot.findElement(By.cssSelector("div.item:nth-of-type(1) a")).click();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://shop.polymer-project.org/list/mens_outerwear");
     }
 
     @Test
-    public void TC_02_ValidatePageTitle() {
-    }
+    public void TC_02_Nested() {
+        driver.get("https://automationfc.github.io/shadow-dom");
 
-    @Test
-    public void TC_03_NavigateFunction() {
-    }
+        WebElement shadowHost = driver.findElement(By.cssSelector("#shadow_host"));
+        SearchContext shadowRoot = shadowHost.getShadowRoot();
+        
+        Assert.assertTrue(shadowRoot.findElement(By.cssSelector("span.info")).isDisplayed());
+        Assert.assertFalse(shadowRoot.findElement(By.cssSelector("input[type='checkbox']")).isSelected());
 
-    @Test
-    public void TC_04_GetPageSourceCode() {
+        WebElement nestedShadowHost = shadowRoot.findElement(By.cssSelector("#nested_shadow_host"));
+        SearchContext nestedShadowRoot = nestedShadowHost.getShadowRoot();
+        
+        Assert.assertTrue(nestedShadowRoot.findElement(By.cssSelector("#nested_shadow_content > div")).isDisplayed());
     }
 
     @AfterClass

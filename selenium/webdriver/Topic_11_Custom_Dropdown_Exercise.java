@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class Topic_11_Custom_Dropdown_Exercise {
@@ -49,7 +49,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
         }
 
         driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         if (!headless) {
             driver.manage().window().maximize();
         }
@@ -113,7 +113,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
     public void TC_07_JQuery_Honda() throws InterruptedException {
         driver.get("https://www.honda.com.vn/o-to/du-toan-chi-phi");
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement parentElement = driver.findElement(By.xpath("//button[@id='selectize-input']"));
 
         jsExecutor.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", parentElement);
@@ -155,7 +155,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
 
     private void selectItemInSelectableDropdown(String parentXpath, String childXpath, String expectedTextItem) throws InterruptedException {
         driver.findElement(By.xpath(parentXpath)).click();
-        List<WebElement> allItems = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
+        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
         for (WebElement item : allItems) {
             if (item.getText().equals(expectedTextItem)) {
                 item.click();
@@ -169,7 +169,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
     private void selectItemInEditableDropdown(String editableXpath, String childXpath, String expectedTextItem) throws InterruptedException {
         driver.findElement(By.xpath(editableXpath)).sendKeys(expectedTextItem);
         Thread.sleep(1000);
-        List<WebElement> allItems = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
+        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
         for (WebElement item : allItems) {
             if (item.getText().equals(expectedTextItem)) {
                 item.click();
@@ -179,14 +179,14 @@ public class Topic_11_Custom_Dropdown_Exercise {
     }
 
     private void selectItemInHuaweiCountryDropdown(String parentXpath, String editableXpath, String childXpath, String expectedItem) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement parentElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(parentXpath)));
         org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
         actions.moveToElement(parentElement).click().perform();
         Thread.sleep(500);
         driver.findElement(By.xpath(editableXpath)).sendKeys(expectedItem);
         Thread.sleep(500);
-        List<WebElement> allItems = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
+        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
         for (WebElement item : allItems) {
             if (item.getText().equals(expectedItem)) {
                 item.click();
@@ -198,7 +198,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
     private void selectItemInMultipleSelectDropdown(String parentXpath, String childXpath, String... expectedTextItems) throws InterruptedException {
         driver.findElement(By.xpath(parentXpath)).click();
         Thread.sleep(500);
-        List<WebElement> allItems = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
+        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
         for (String expectedTextItem : expectedTextItems) {
             for (WebElement item : allItems) {
                 if (item.getText().equals(expectedTextItem)) {
@@ -211,7 +211,7 @@ public class Topic_11_Custom_Dropdown_Exercise {
 
     private boolean isLoadingWheelDisappear() {
         WebElement loadingWheel = driver.findElement(By.xpath("//div[@class='oxd-loading-spinner-container']"));
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOf(loadingWheel));
         return true;
     }
